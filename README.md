@@ -11,12 +11,20 @@ This is for those wanting to use RadioLib's `LoRaWANNode` in combination with th
 A more advanced use of this library is to have it manage the LoRaWAN endpoint provisioning information also. There's a way to provide the provisioning data from your own code, for you to use if you are building a LoRaWAN device with a web interface or using an app and Bluetooth, or if you keep your provisioning data on 8" floppy, or whatever. If your code starts `persist.manage` with no provisioning information in flash, the node will start a serial dialogue to obtain the information. There you can just paste in the information, e.g. from The Things Network registration screen.
 
 ```
+Temperature: 32.40 °C
+Radio init
+Please enter the provisioning information needed to join the LoRaWAN network.
 Enter LoRaWAN band (e.g. EU868 or US915)  [EU868]
 Enter subband for your frequency plan, if applicable. Otherwise just press Enter.  []
 Enter joinEUI (64 bits, 16 hex characters.) Press enter to use all zeroes.  [0000000000000000]
-Enter devEUI (64 bits, 16 hex characters)  [70B3D57ED0066284]
-Enter appKey (128 bits, 32 hex characters)  [2B59DC1DEE333C94020F03A65BBF3C02]
-Enter nwkKey (128 bits, 32 hex characters)  [044470741834070E1DCF47A1FE8A2997]
+Enter devEUI (64 bits, 16 hex characters)  [70B3D57ED0066298]
+Enter appKey (128 bits, 32 hex characters)  [4ED1AB3EA409E132A7A537198604AEB0]
+Enter nwkKey (128 bits, 32 hex characters)  [83A69393B3D2BBB64307B260EB6BA1EB]
+Thank you. Provisioning information saved to flash.
+Now joining network.
+Message sent
+Going to deep sleep now
+Next TX in 1194 s
 ```
 
 On all subsequent starts of your node, the information will be retrieved from flash and the node will be joined and ready when `persist.manage` returns.
