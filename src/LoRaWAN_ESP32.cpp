@@ -109,6 +109,7 @@ LoRaWANNode* NodePersistence::manage(PhysicalLayer* phy, bool autoJoin) {
 
   if (!this->isProvisioned()) { 
     RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] No or incomplete provisioning. Getting from console.");
+    console->println("No provisioning data found in flash.");
     this->provision();
     if (autoJoin) {
       console->println("Now joining network.");

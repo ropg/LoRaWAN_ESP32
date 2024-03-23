@@ -13,6 +13,7 @@ A more advanced use of this library is to have it manage the LoRaWAN endpoint pr
 ```
 Temperature: 32.40 °C
 Radio init
+No provisioning data found in flash.
 Please enter the provisioning information needed to join the LoRaWAN network.
 Enter LoRaWAN band (e.g. EU868 or US915)  [EU868]
 Enter subband for your frequency plan, if applicable. Otherwise just press Enter.  []
