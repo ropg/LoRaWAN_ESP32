@@ -199,7 +199,7 @@ const char* bandName(uint16_t number);
 
 Much of the documentation above will be self-explanatory. The [managed_provisioning_data example](https://github.com/ropg/LoRaWAN_ESP32/blob/main/examples/managed_provisioning_data/managed_provisioning_data.ino) with this library shows a very simple LoRaWAN device that will prompt for its provisioning data via the serial port on first run and then will happily provide ESP32 chip temperature at deep-sleep wakeup every 15 minutes.
 
-* Use `setConsole()` if you are not using `Serial`, e.g. when you are using the ESP32 built-in USB serial "chip" via `USBSerial`. This determines where the dialog happens if there's no provisiong data.
+* Use `setConsole()` if you are not using `Serial`, e.g. when you are using the ESP32 built-in USB serial "chip" via `USBSerial`. This determines where the dialog happens if there's no provisioning data.
 
 * `numberOfBands()` and `bandName()` will let your code populate a dropdown of valid bands.
 
