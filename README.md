@@ -74,7 +74,7 @@ bool loadSession(LoRaWANNode* node);
 bool saveSession(LoRaWANNode* node);
 ```
 
-To use these functions:
+#### Usage
 
 * Take any RadioLib example file, and add `#include <LoRaWAN_ESP32.h>` at the top. This will create a `persist` instance that your code can interact with.
 
@@ -215,8 +215,6 @@ uint16_t numberOfBands();
 */
 const char* bandName(uint16_t number);
 ```
-
-&nbsp;
 
 #### Usage
 
