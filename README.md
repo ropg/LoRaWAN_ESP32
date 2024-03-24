@@ -8,6 +8,9 @@
 
 This is for those wanting to use RadioLib's `LoRaWANNode` in combination with the ESP32's deep sleep. Unlike some other embedded systems, the ESP32 loses RAM contents during deep sleep, except for 8kB of RAM connected to the the built-in Real-Time Clock. RadioLib LoRaWAN offers the ability to take the session state and save it somewhere for next time you want to send a packet. In its simplest form, this library provides that somewhere, putting that which can be safely lost (the session state) in RTC RAM, and that which you don't want to lose (the information needed to create the next session), in the ESP32's NVS flash partition.
 
+> [!WARNING]
+> This library interacts with experimental RadioLib / LoRaWANNode functions that are not in any released versions yet, so for the time being this is only for those using RadioLib fresh off GitHub.***
+
 A more advanced use of this library is to have it manage the LoRaWAN endpoint provisioning information also. There's a way to provide the provisioning data from your own code, for you to use if you are building a LoRaWAN device with a web interface or using an app and Bluetooth, or if you keep your provisioning data on 8" floppy, or whatever. If your code starts `persist.manage` with no provisioning information in flash, the node will start a serial dialogue to obtain the information. There you can just paste in the information, e.g. from The Things Network registration screen.
 
 ```
@@ -29,6 +32,12 @@ Next TX in 1194 s
 ```
 
 On all subsequent starts of your node, the information will be retrieved from flash and the node will be joined and ready when `persist.manage` returns.
+
+&nbsp;
+
+## Pointers
+
+All the functions here handle pointers to the `LoRaWANNode` instance instead of references. Reason is that the node can only be created once the LoRaWAN band is known. In the simple use case of just using `persist` for storing and rtrieving the session state, all that means is that you provide `&node` if your code has a global instance. In the case where `persist` manages the provisioning information, it means you can't have a global node instance, only a global pointer, and that you interact with LoRaWANNode with `node->someFunction()` instead of `node.someFunction()`.
 
 &nbsp;
 
@@ -69,7 +78,7 @@ To use these functions:
 
 * Then put `persist.loadSession(&node)` somewhere after the node instance is created. This will return true if a previous session was saved and there was an existing session in RTC RAM, i.e. when your code is waking up from deep sleep. When `loadSession` returns `false`, one of two things might have happened: either there was no saved LoRaWAN data found at all, or only the 'nonces' were retrieved from flash. In the latter case, the nonces allow you to re-join the network in a secure way, without any messages about the devNonce being too small. 
 
-* After joining (`beginOTAA`) and before your code tells the ESP32 to go to deep sleep, call `saveSession(&node)` to save the session state. The session state lives in RTC RAM, which does have limited-lifetime issues, and when the 'nonces' (the intra-session state) change, you want to write them to flash. Nothing is ever written if it hasn't changed, so you effectively cannot call `persist.saveSession` too often. 
+* After joining (`beginOTAA`) and before your code tells the ESP32 to go to deep sleep, call `persist.saveSession(&node)` to save the session state. The session state lives in RTC RAM, which does have limited-lifetime issues, and when the 'nonces' (the intra-session state) change, you want to write them to flash. Nothing is ever written if it hasn't changed, so you effectively cannot call `persist.saveSession` too often. 
 
 > *Best to call* `beginOTAA` *with the* `force` *argument set to* `true` *if* `loadSession` *returns* `false`*, because you already know that the network will need to be re-joined as there is no session information anymore.*
 
