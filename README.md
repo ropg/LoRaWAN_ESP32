@@ -63,7 +63,7 @@ bool saveSession(LoRaWANNode* node);
 
 To use these functions:
 
-* Take any RadioLib example file, and add `#include <LoRaWAN_ESP32>` at the top. This will create a `persist` instance that your code can interact with.
+* Take any RadioLib example file, and add `#include <LoRaWAN_ESP32.h>` at the top. This will create a `persist` instance that your code can interact with.
 
 * Then put `persist.loadSession(&node)` somewhere after the node instance is created. This will return true if a previous session was saved and there was an existing session in RTC RAM, i.e. when your code is waking up from deep sleep. When `loadSession` returns `false`, one of two things might have happened: either there was no saved LoRaWAN data found at all, or only the 'nonces' were retrieved from flash. In the latter case, the nonces allow you to re-join the network in a secure way, without any messages about the devNonce being too small. 
 
@@ -197,7 +197,7 @@ const char* bandName(uint16_t number);
 
 #### Usage
 
-Much of the documentation above will be self-explanatory. The [managed_provisioning_data example](https://github.com/ropg/LoRaWAN_ESP32/blob/main/examples/managed_provisioning_data/managed_provisioning_data.ino) with this library shows a very simple LoRaWAN device that will prompt for its provisioning data via the serial port on first run and then will happily provide ESP32 chip temperature at deep-sleep wakeup every 15 minutes.
+Much of the documentation above will be self-explanatory. The [managed_provisioning_data example](https://github.com/ropg/LoRaWAN_ESP32/blob/main/examples/managed_provisioning_data/managed_provisioning_data.ino) with this library shows a very simple LoRaWAN device that will prompt for its provisioning data via the serial port on first run and then will happily provide ESP32 chip temperature at deep-sleep wakeup every 15 minutes. In fact, it's the example that produced the dialog at the beginning of this README.
 
 * Use `setConsole()` if you are not using `Serial`, e.g. when you are using the ESP32 built-in USB serial "chip" via `USBSerial`. This determines where the dialog happens if there's no provisioning data.
 
