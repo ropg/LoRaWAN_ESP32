@@ -136,6 +136,9 @@ LoRaWANNode* NodePersistence::manage(PhysicalLayer* phy, bool autoJoin) {
     node->beginOTAA(this->joinEUI, this->devEUI, this->nwkKey, this->appKey, true);
   }
 
+  // Never hurts to do here already, in case we crash later on
+  this->saveSession(node);
+
   return node;
 
 }
