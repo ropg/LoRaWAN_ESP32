@@ -20,9 +20,9 @@ class NodePersistence {
      * restores the session information if sleep wakeup or at least the nonces
      * (to be able to start a new session) if fresh boot.
      *
-     * @param node Pointer to LoRaWANNode instance.
-     * @return `true` if session data restored, `false` if this was a fresh
-     * boot.
+     * @param node  Pointer to LoRaWANNode instance.
+     * @return      `true` if session data restored, `false` if this was a fresh
+     *              boot, nonces or no nonces.
     */
     bool loadSession(LoRaWANNode* node);
 
@@ -44,6 +44,7 @@ class NodePersistence {
     /**
      * @brief persist.setConsole selects the Stream device on which the
      *        provisioning dialog takes place.
+     * @param console Stream instance
      *
      * Set this to USBserial if your board uses the ESP32s built-in USB serial.
     */
@@ -51,7 +52,7 @@ class NodePersistence {
 
     /**
      * @brief persist.isProvisioned tells whether or not there's stored
-     *        provisioning information?
+     *        and complete provisioning information.
      *
      * Also copies the provisioning information from flash to the internal
      * buffer, where it can be retrieved by the getXXX functions. The data these
