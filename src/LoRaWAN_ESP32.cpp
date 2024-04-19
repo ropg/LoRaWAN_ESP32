@@ -149,7 +149,7 @@ void NodePersistence::wipe() {
 
 bool NodePersistence::provision() {
   console->flush();
-  console->setTimeout(100000);
+  console->setTimeout(600000);
   console->println("Please enter the provisioning information needed to join the LoRaWAN network.\n");
 
   // Band
