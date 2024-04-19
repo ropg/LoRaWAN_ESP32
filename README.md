@@ -4,11 +4,6 @@
 
 &nbsp;
 
-> [!WARNING]
-> This library interacts with experimental RadioLib / LoRaWANNode functions that are not in any released versions yet, so for the time being this is only for those using RadioLib fresh off GitHub. This API – along with LoRaWAN functionality in RadioLib more generally – is in beta and subject to change.
-
-&nbsp;
-
 ## Introduction
 
 This is for those wanting to use RadioLib's `LoRaWANNode` in combination with the ESP32's deep sleep. Unlike some other embedded systems, the ESP32 loses RAM contents during deep sleep, except for 8kB of RAM connected to the the built-in Real-Time Clock. RadioLib LoRaWAN offers the ability to take the session state and save it somewhere for next time you want to send a packet. In its simplest form, this library provides that somewhere, putting that which can be safely lost (the session state) in RTC RAM, and that which you don't want to lose (the information needed to create the next session), in the ESP32's NVS flash partition.
