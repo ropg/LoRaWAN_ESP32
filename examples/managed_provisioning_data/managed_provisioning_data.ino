@@ -70,7 +70,7 @@ void setup() {
   if(state == RADIOLIB_ERR_NONE || state == RADIOLIB_ERR_RX_TIMEOUT) {
     Serial.println("Message sent");
   } else {
-    Serial.printf("sendReceive returned error %d, we'll try again later.\n");
+    Serial.printf("sendReceive returned error %d, we'll try again later.\n", state);
   }
 
   goToSleep();    // Does not return, program starts over next round
