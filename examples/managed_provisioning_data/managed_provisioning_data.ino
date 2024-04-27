@@ -59,7 +59,7 @@ void setup() {
   node->setDutyCycle(true, 1250);
 
   uint8_t uplinkData[2];
-  uplinkData[0] = count;
+  uplinkData[0] = count++;
   uplinkData[1] = temp + 100;
 
   uint8_t downlinkData[256];
