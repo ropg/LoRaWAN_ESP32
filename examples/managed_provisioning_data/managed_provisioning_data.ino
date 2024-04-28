@@ -93,7 +93,7 @@ void goToSleep() {
   Serial.printf("Next TX in %i s\n", delayMs/1000);
   delay(100);  // So message prints
 
-  esp_sleep_enable_timer_wakeup(delayMs * 1000);
+  esp_sleep_enable_timer_wakeup((int64_t)delayMs * 1000);
 
   // INSERT WHATEVER ELSE YOU NEED TO DO TO MINIMIZE POWER USAGE DURING SLEEP
   
