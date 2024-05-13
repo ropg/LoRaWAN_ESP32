@@ -1,0 +1,23 @@
+name: Compile Arduino Sketches
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Install Arduino CLI
+      uses: arduino/setup-arduino-cli@v1
+
+    - name: Install Dependencies
+      run: |
+        arduino-cli lib install "RadioLib"
+
+    - name: Compile Sketches
+      uses: arduino/compile-sketches@v1
+      with:
+        fqbn: esp32:esp32:esp32s3
