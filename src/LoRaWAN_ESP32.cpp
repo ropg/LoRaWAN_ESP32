@@ -126,7 +126,6 @@ LoRaWANNode* NodePersistence::manage(PhysicalLayer* phy, bool autoJoin) {
     return node;
   }
 
-  int16_t state = RADIOLIB_ERR_UNKNOWN;
   if (restored) {
     RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] Session data found, doing beginOTAA.");
     node->beginOTAA(this->joinEUI, this->devEUI, this->nwkKey, this->appKey);
