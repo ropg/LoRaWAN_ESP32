@@ -127,12 +127,12 @@ class NodePersistence {
       These will only hold valid data after you have called isProvisioned()
       and it has returned `true`
     */
-    const char* getBand();
-    const uint8_t getSubBand();
-    const uint64_t getJoinEUI();
-    const uint64_t getDevEUI();
-    const uint8_t* getAppKey();
-    const uint8_t* getNwkKey();
+    char* getBand();
+    uint8_t getSubBand();
+    uint64_t getJoinEUI();
+    uint64_t getDevEUI();
+    uint8_t* getAppKey();
+    uint8_t* getNwkKey();
 
     /**
      * @brief persist.bandToPtr turns a textual representation of a LoRaWAN band

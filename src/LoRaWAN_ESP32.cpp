@@ -64,7 +64,7 @@ bool NodePersistence::isProvisioned() {
 
   RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] Reading from NVS");
   nvs.getString("band", this->band, MAX_BAND_NAME_LEN);
-  if (this->band != "") {
+  if (this->band[0]) {
     RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist]      band: %s", this->band);
   }
   this->subBand = nvs.getUChar("subBand");
@@ -73,11 +73,11 @@ bool NodePersistence::isProvisioned() {
   }
   this->joinEUI = nvs.getULong64("joinEUI", empty);
   if (this->joinEUI != empty) {
-    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist]   joinEUI: %016"PRIx64, this->joinEUI);
+    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist]   joinEUI: %016" PRIx64, this->joinEUI);
   }
   this->devEUI = nvs.getULong64("devEUI", empty);
   if (this->devEUI != empty) {
-    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist]    devEUI: %016"PRIx64, this->devEUI);
+    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist]    devEUI: %016" PRIx64, this->devEUI);
   }
   int lenAppKey = nvs.getBytes("appKey", this->appKey, 16);
   if (lenAppKey == 16) {
@@ -129,7 +129,7 @@ LoRaWANNode* NodePersistence::manage(PhysicalLayer* phy, bool autoJoin) {
   int16_t state = RADIOLIB_ERR_UNKNOWN;
   if (restored) {
     RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] Session data found, doing beginOTAA.");
-    state = node->beginOTAA(this->joinEUI, this->devEUI, this->nwkKey, this->appKey);
+    node->beginOTAA(this->joinEUI, this->devEUI, this->nwkKey, this->appKey);
   }  
   if (!restored || !node->isJoined()) {
     RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] No session data or beginOTAA failed: join forced.");
@@ -257,27 +257,27 @@ bool NodePersistence::provision(
   return this->isProvisioned();
 }
 
-const char* NodePersistence::getBand() {
+char* NodePersistence::getBand() {
   return this->band;
 }
 
-const uint8_t NodePersistence::getSubBand() {
+uint8_t NodePersistence::getSubBand() {
   return this->subBand;
 }
 
-const uint64_t NodePersistence::getJoinEUI() {
+uint64_t NodePersistence::getJoinEUI() {
   return this->joinEUI;
 }
 
-const uint64_t NodePersistence::getDevEUI() {
+uint64_t NodePersistence::getDevEUI() {
   return this->devEUI;
 }
 
-const uint8_t* NodePersistence::getAppKey() {
+uint8_t* NodePersistence::getAppKey() {
   return this->appKey;
 }
 
-const uint8_t* NodePersistence::getNwkKey() {
+uint8_t* NodePersistence::getNwkKey() {
   return this->nwkKey;
 }
 
