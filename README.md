@@ -4,6 +4,11 @@
 
 &nbsp;
 
+> [!NOTE]
+> This library, since version 1.1.0, needs RadioLib version to be at least 6.6.0.
+
+&nbsp;
+
 ## Introduction
 
 This is for those wanting to use RadioLib's `LoRaWANNode` in combination with the ESP32's deep sleep. Unlike some other embedded systems, the ESP32 loses RAM contents during deep sleep, except for 8kB of RAM connected to the the built-in Real-Time Clock. RadioLib LoRaWAN offers the ability to take the session state and save it somewhere for next time you want to send a packet. In its simplest form, this library provides that somewhere, putting that which can be safely lost (the session state) in RTC RAM, and that which you don't want to lose (the information needed to create the next session), in the ESP32's NVS flash partition.
@@ -110,7 +115,7 @@ bool isProvisioned();
  *        returns a pointer to a new, fully provisioned and (hopefully)
  *        joined LoRaWANNode instance.
  *
- * Use node->isJoined() to find out if joining succeeded.
+ * Use node->isActivated() to find out if joining succeeded.
  *
  * If no provisioning information is found in flash, the user is prompted to
  * enter this via de serial console. Since that essentially halts the system

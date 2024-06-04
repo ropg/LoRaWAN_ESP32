@@ -68,7 +68,7 @@ class NodePersistence {
      *        returns a pointer to a new, fully provisioned and (hopefully)
      *        joined LoRaWANNode instance.
      *
-     * Use node->isJoined() to find out if joining succeeded.
+     * Use node->isActivated() to find out if joining succeeded.
      *
      * If no provisioning information is found in flash, the user is prompted to
      * enter this via de serial console. Since that essentially halts the system

@@ -120,19 +120,21 @@ LoRaWANNode* NodePersistence::manage(PhysicalLayer* phy, bool autoJoin) {
 
   LoRaWANNode* node = new LoRaWANNode(phy, bandToPtr(this->band), this->subBand);
 
-  bool restored = this->loadSession(node);
+  RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] beginOTAA");
+  node->beginOTAA(this->joinEUI, this->devEUI, this->nwkKey, this->appKey);
+
+  this->loadSession(node);
 
   if (!autoJoin) {
     return node;
   }
 
-  if (restored) {
-    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] Session data found, doing beginOTAA.");
-    node->beginOTAA(this->joinEUI, this->devEUI, this->nwkKey, this->appKey);
-  }  
-  if (!restored || !node->isJoined()) {
-    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] No session data or beginOTAA failed: join forced.");
-    node->beginOTAA(this->joinEUI, this->devEUI, this->nwkKey, this->appKey, true);
+  RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] activateOTAA");
+  int16_t state = node->activateOTAA();
+  if (state == RADIOLIB_LORAWAN_SESSION_RESTORED) {
+    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] Session restored");
+  } else if (state == RADIOLIB_LORAWAN_NEW_SESSION) {
+    RADIOLIB_DEBUG_PROTOCOL_PRINTLN("[persist] Activation successful");
   }
 
   // Never hurts to do here already, in case we crash later on
