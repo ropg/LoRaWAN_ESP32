@@ -178,7 +178,8 @@ class NodePersistence {
     uint8_t nwkKey[16];
     Stream* console = &Serial;
     bool parseHexString(int num_bytes, const char* input_str, uint8_t* data);
-    bool parseHexToUint64(const char* input_str, uint64_t& result) ;
+    bool parseHexToUint64(const char* input_str, uint64_t& result);
+    String getStringFromConsole();
 
 #endif  // PERSIST_LOAD_SAVE_SESSION_ONLY 
 

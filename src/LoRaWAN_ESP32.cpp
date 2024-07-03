@@ -160,8 +160,7 @@ bool NodePersistence::provision() {
   String band;
   while (true) {
     console->print("Enter LoRaWAN band (e.g. EU868 or US915)  ");
-    band = console->readStringUntil('\n');
-    band.toUpperCase();
+    band = getStringFromConsole();
     if (bandToPtr(band.c_str()) != nullptr) break;
     console->printf("\nError: '%s' is not a supported band.\n", band.c_str());
   }
@@ -172,7 +171,7 @@ bool NodePersistence::provision() {
   String subBand_str;
   while (true) {
     console->print("Enter subband for your frequency plan, if applicable. Otherwise just press Enter.  ");
-    subBand_str = console->readStringUntil('\n');
+    subBand_str = getStringFromConsole();
     if (subBand_str == "") {
       subBand = 0;
       break;
@@ -188,7 +187,7 @@ bool NodePersistence::provision() {
   String joinEUI_str;
   while (true) {
     console->print("Enter joinEUI (64 bits, 16 hex characters.) Press enter to use all zeroes.  ");
-    joinEUI_str = console->readStringUntil('\n');
+    joinEUI_str = getStringFromConsole();
     if (joinEUI_str == "") {
       joinEUI_str = "0000000000000000";
     }
@@ -202,7 +201,7 @@ bool NodePersistence::provision() {
   String devEUI_str;
   while (true) {
     console->print("Enter devEUI (64 bits, 16 hex characters)  ");
-    devEUI_str = console->readStringUntil('\n');
+    devEUI_str = getStringFromConsole();
     if (parseHexToUint64(devEUI_str.c_str(), devEUI)) break;
     console->printf("\nError: '%s' is not a valid devEUI.\n", devEUI_str.c_str());
   }
@@ -213,7 +212,7 @@ bool NodePersistence::provision() {
   String appKey_str;
   while (true) {
     console->print("Enter appKey (128 bits, 32 hex characters)  ");
-    appKey_str = console->readStringUntil('\n');
+    appKey_str = getStringFromConsole();
     if (parseHexString(16, appKey_str.c_str(), appKey)) break;
     console->printf("\nError: '%s' is not a valid appKey.\n", appKey_str.c_str());
   }
@@ -224,7 +223,7 @@ bool NodePersistence::provision() {
   String nwkKey_str;
   while (true) {
     console->print("Enter nwkKey (128 bits, 32 hex characters)  ");
-    nwkKey_str = console->readStringUntil('\n');
+    nwkKey_str = getStringFromConsole();
     if (parseHexString(16, nwkKey_str.c_str(), nwkKey)) break;
     console->printf("\nError: '%s' is not a valid nwkKey.\n", nwkKey_str.c_str());
   }
@@ -312,14 +311,12 @@ const LoRaWANBand_t* band_pointers[] = {
 #define NUM_BANDS (sizeof(band_pointers) / sizeof(band_pointers[0]))
 
 const LoRaWANBand_t* NodePersistence::bandToPtr(const char* band) {
-
   for (int n = 0; n < NUM_BANDS; n++) {
     if (strcmp(band_names[n], band) == 0) {
       return band_pointers[n];
     }
   }
   return nullptr;
-
 }
 
 uint16_t NodePersistence::numberOfBands() {
@@ -368,6 +365,28 @@ bool NodePersistence::parseHexToUint64(const char* input_str, uint64_t& result) 
     result = (result << 4) | value;
   }
   return true;
+}
+
+/**
+ * @brief Gets a string from console, capitalizes it and removes non-alphanumeric characters.
+ *
+ * @return String with only uppercase alphanumeric characters.
+ */
+String NodePersistence::getStringFromConsole() {
+  // read from console
+  String str = console->readStringUntil('\n');
+  // make upper case
+  str.toUpperCase();
+  // Remove non-alphanumeric characters
+  int writeIndex = 0;
+  for (int readIndex = 0; readIndex < str.length(); readIndex++) {
+    char c = str[readIndex];
+    if (isalnum(c)) {
+      str[writeIndex++] = c;
+    }
+  }
+  str.remove(writeIndex);  // remove remaining characters
+  return str;
 }
 
 #endif  // PERSIST_LOAD_SAVE_SESSION_ONLY
