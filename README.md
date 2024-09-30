@@ -5,7 +5,7 @@
 &nbsp;
 
 > [!NOTE]
-> This library, since version 1.1.0, needs RadioLib version to be at least 6.6.0.
+> This library, since version 1.2.0, needs RadioLib version to be at least 7.0.0.
 
 &nbsp;
 
@@ -28,7 +28,7 @@ Enter appKey (128 bits, 32 hex characters)  [4ED1AB3EA409E132A7A537198604AEB0]
 Enter nwkKey (128 bits, 32 hex characters)  [83A69393B3D2BBB64307B260EB6BA1EB]
 Thank you. Provisioning information saved to flash.
 Now joining network.
-Message sent
+Message sent, downlink received.
 Going to deep sleep now
 Next TX in 1194 s
 ```
