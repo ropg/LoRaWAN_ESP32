@@ -5,7 +5,7 @@
 &nbsp;
 
 > [!NOTE]
-> This library, since version 1.2.0, needs RadioLib version to be at least 7.0.0.
+> This library, since version 1.3.0, needs RadioLib version to be at least 7.2.0.
 
 &nbsp;
 
